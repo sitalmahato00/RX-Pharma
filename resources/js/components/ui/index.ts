@@ -13,6 +13,7 @@ export { Input, Label, Select, Textarea } from './Input';
 export type { InputProps } from './Input';
 export { default as Logo } from './Logo';
 export { default as Modal } from './Modal';
+export { default as MediaPreview } from './MediaPreview';
 export { default as Pagination } from './Pagination';
 export type { PaginationLink } from './Pagination';
 export { default as ProgressBar } from './ProgressBar';

@@ -29,8 +29,9 @@ import {
     Video,
     type LucideIcon,
 } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Avatar, Dropdown, SearchBar } from '@/components/ui';
+import { useToast } from '@/components/ui/Toast';
 import { cn, timeAgo } from '@/lib/utils';
 import type { AppNotification, User } from '@/types';
 
@@ -298,10 +299,18 @@ function ProfileMenu() {
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { flash } = usePage<{ flash?: { success?: string; error?: string; warning?: string } }>().props;
+    const { success, error, warning } = useToast();
+
+    useEffect(() => {
+        if (flash?.success) success('Success', flash.success);
+        if (flash?.error) error('Error', flash.error);
+        if (flash?.warning) warning('Warning', flash.warning);
+    }, [flash?.success, flash?.error, flash?.warning, success, error, warning]);
 
     return (
-        <div className="flex h-screen overflow-hidden">
-            <aside className="hidden w-60 flex-shrink-0 flex-col bg-primary-900 text-white lg:flex">
+        <div className="fixed inset-0 flex overflow-hidden">
+            <aside className="hidden h-full w-60 flex-shrink-0 flex-col bg-primary-900 text-white lg:flex">
                 <SidebarInner />
             </aside>
 
@@ -314,7 +323,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 </div>
             )}
 
-            <div className="flex min-w-0 flex-1 flex-col">
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
                 <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 py-3.5 sm:px-6">
                     <div className="flex items-center gap-2">
                         <button
@@ -344,7 +353,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto bg-surface p-4 sm:p-6 lg:p-8">{children}</main>
+                <main className="min-h-0 flex-1 overflow-y-auto bg-surface p-4 sm:p-6 lg:p-8">{children}</main>
             </div>
         </div>
     );

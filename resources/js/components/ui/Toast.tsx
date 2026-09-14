@@ -1,5 +1,5 @@
 import { CheckCircle2, XCircle, AlertTriangle, Info, X } from 'lucide-react';
-import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
@@ -48,13 +48,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         setTimeout(() => removeToast(id), 4000);
     }, [removeToast]);
 
-    const value: ToastContextValue = {
+    const value = useMemo<ToastContextValue>(() => ({
         toast,
         success: (t, d) => toast('success', t, d),
         error: (t, d) => toast('error', t, d),
         warning: (t, d) => toast('warning', t, d),
         info: (t, d) => toast('info', t, d),
-    };
+    }), [toast]);
 
     return (
         <ToastContext.Provider value={value}>

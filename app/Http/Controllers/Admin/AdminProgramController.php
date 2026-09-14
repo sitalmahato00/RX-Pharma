@@ -44,7 +44,12 @@ class AdminProgramController extends Controller
         $data = $request->validate([
             'university_id' => ['nullable', 'exists:universities,id'],
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('programs')],
+            'slug' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('programs')->where(fn ($query) => $query->where('university_id', $request->input('university_id'))),
+            ],
             'code' => ['nullable', 'string', 'max:50'],
             'level' => ['nullable', 'string', 'max:100'],
             'duration_years' => ['nullable', 'integer', 'min:1', 'max:10'],
@@ -74,7 +79,14 @@ class AdminProgramController extends Controller
         $data = $request->validate([
             'university_id' => ['nullable', 'exists:universities,id'],
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('programs')->ignore($program->id)],
+            'slug' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('programs')
+                    ->where(fn ($query) => $query->where('university_id', $request->input('university_id')))
+                    ->ignore($program->id),
+            ],
             'code' => ['nullable', 'string', 'max:50'],
             'level' => ['nullable', 'string', 'max:100'],
             'duration_years' => ['nullable', 'integer', 'min:1', 'max:10'],

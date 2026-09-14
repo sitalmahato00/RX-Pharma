@@ -9,15 +9,16 @@ interface Props {
         program_id: number;
         number: number;
         is_active: boolean;
+        program?: { id: number; university_id?: number | null; university?: { id: number; name: string } };
     };
-    programs: { id: number; name: string }[];
+    universities: { id: number; name: string }[];
 }
 
-export default function Edit({ semester, programs }: Props) {
+export default function Edit({ semester, universities }: Props) {
     return (
         <>
             <Head title={`Edit ${semester.name}`} />
-            <Form semester={semester} programs={programs} />
+            <Form semester={semester} universities={universities} />
         </>
     );
 }

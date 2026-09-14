@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Alert, Button, Card, FileUpload, Input, Label, Select, Textarea } from '@/components/ui';
+import { Alert, Button, Card, FileUpload, Input, Label, MediaPreview, Select, Textarea } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import AcademicCascade from '@/components/admin/AcademicCascade';
 
@@ -175,6 +175,7 @@ export default function Form({ paper, universities }: Props) {
                         onChange={(f) => setData('file', f)}
                         hint={isEdit && paper?.file_name ? `Leave empty to keep the current file (${paper.file_name}).` : 'pdf, doc, docx or zip (max 50MB)'}
                     />
+                    <MediaPreview source={data.file || (isEdit ? paper?.file_path : null)} type="pdf" label="Paper preview" />
                     {errors.file && <p className="mt-1 text-xs text-red-500">{errors.file}</p>}
 
                     <Input
@@ -193,6 +194,7 @@ export default function Form({ paper, universities }: Props) {
                         onChange={(f) => setData('answer_key', f)}
                         hint={isEdit && paper?.answer_key_path ? 'Leave empty to keep the current answer key.' : 'pdf, doc, docx or zip (max 50MB)'}
                     />
+                    <MediaPreview source={data.answer_key || (isEdit ? paper?.answer_key_path : null)} type="pdf" label="Answer key preview" />
                     {errors.answer_key && <p className="mt-1 text-xs text-red-500">{errors.answer_key}</p>}
 
                     <Input

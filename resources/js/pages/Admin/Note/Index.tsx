@@ -1,5 +1,5 @@
-import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Alert, Badge, Button, Card, ConfirmDialog, EmptyState, Input, Pagination, Select } from '@/components/ui';
+import { Head, Link, router } from '@inertiajs/react';
+import { Badge, Button, Card, ConfirmDialog, EmptyState, Input, Pagination, Select } from '@/components/ui';
 import type { BadgeColor } from '@/components/ui';
 import { FileText, Pencil, Plus, Star, Trash2 } from 'lucide-react';
 import { useState } from 'react';
@@ -43,7 +43,6 @@ const statusColor: Record<string, BadgeColor> = {
 };
 
 export default function Index({ notes, subjects, filters }: Props) {
-    const { flash } = usePage<{ flash: { success?: string } }>().props;
     const [search, setSearch] = useState(filters.search ?? '');
     const [subjectId, setSubjectId] = useState(filters.subject_id ?? '');
     const [status, setStatus] = useState(filters.status ?? '');
@@ -66,8 +65,6 @@ export default function Index({ notes, subjects, filters }: Props) {
             <Head title="Notes" />
 
             <div className="space-y-6">
-                {flash.success && <Alert type="success" dismissible>{flash.success}</Alert>}
-
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-ink">Notes</h1>

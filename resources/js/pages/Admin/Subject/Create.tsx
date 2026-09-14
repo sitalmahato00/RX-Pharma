@@ -3,13 +3,14 @@ import Form from './Form';
 
 interface Props {
     semesters: { id: number; name: string; number: number }[];
+    universities?: { id: number; name: string }[];
 }
 
-export default function Create({ semesters }: Props) {
+export default function Create({ semesters, universities = [] }: Props) {
     return (
         <>
             <Head title="Create Subject" />
-            <Form semesters={semesters} />
+            <Form semesters={semesters} universities={universities} />
         </>
     );
 }

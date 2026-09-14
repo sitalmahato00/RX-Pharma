@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Topic;
 use App\Models\Unit;
+use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -33,9 +34,10 @@ class AdminTopicController extends Controller
 
     public function create()
     {
+        $universities = University::active()->orderBy('name')->get(['id', 'name']);
         $units = Unit::active()->with('subject:id,name')->orderBy('name')->get(['id', 'name', 'subject_id']);
 
-        return inertia('Admin/Topic/Create', ['units' => $units]);
+        return inertia('Admin/Topic/Create', ['units' => $units, 'universities' => $universities]);
     }
 
     public function store(Request $request)
@@ -61,9 +63,11 @@ class AdminTopicController extends Controller
 
     public function edit(Topic $topic)
     {
+        $topic->load('unit.subject.semester.program.university', 'unit.subject.program.university');
+        $universities = University::active()->orderBy('name')->get(['id', 'name']);
         $units = Unit::active()->with('subject:id,name')->orderBy('name')->get(['id', 'name', 'subject_id']);
 
-        return inertia('Admin/Topic/Edit', ['topic' => $topic, 'units' => $units]);
+        return inertia('Admin/Topic/Edit', ['topic' => $topic, 'units' => $units, 'universities' => $universities]);
     }
 
     public function update(Request $request, Topic $topic)

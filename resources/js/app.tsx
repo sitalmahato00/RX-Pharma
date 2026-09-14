@@ -4,6 +4,7 @@ import AdminLayout from './layouts/AdminLayout';
 import BareLayout from './layouts/BareLayout';
 import PublicLayout from './layouts/PublicLayout';
 import StudentLayout from './layouts/StudentLayout';
+import { ToastProvider } from './components/ui/Toast';
 
 function resolveLayout(name: string) {
     if (name.startsWith('Admin/Auth')) return BareLayout;
@@ -29,7 +30,11 @@ createInertiaApp({
     }) as any,
     setup({ el, App, props }) {
         if (!el) return;
-        createRoot(el).render(<App {...props} />);
+        createRoot(el).render(
+            <ToastProvider>
+                <App {...props} />
+            </ToastProvider>
+        );
     },
     progress: {
         delay: 150,

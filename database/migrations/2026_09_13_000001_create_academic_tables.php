@@ -44,7 +44,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('university_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('code', 30)->nullable()->index();
             $table->string('level', 50)->nullable();
             $table->integer('duration_years')->nullable();
@@ -52,6 +52,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(true)->index();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['university_id', 'slug']);
         });
 
         Schema::create('semesters', function (Blueprint $table) {

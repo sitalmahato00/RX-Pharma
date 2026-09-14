@@ -7,6 +7,7 @@ use App\Models\ActivityLog;
 use App\Models\Semester;
 use App\Models\Subject;
 use App\Models\Unit;
+use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -34,9 +35,10 @@ class AdminSubjectController extends Controller
 
     public function create()
     {
+        $universities = University::active()->orderBy('name')->get(['id', 'name']);
         $semesters = Semester::active()->orderBy('number')->get(['id', 'name', 'number']);
 
-        return inertia('Admin/Subject/Create', ['semesters' => $semesters]);
+        return inertia('Admin/Subject/Create', ['semesters' => $semesters, 'universities' => $universities]);
     }
 
     public function store(Request $request)
@@ -64,9 +66,11 @@ class AdminSubjectController extends Controller
 
     public function edit(Subject $subject)
     {
+        $subject->load('semester.program.university', 'program.university');
+        $universities = University::active()->orderBy('name')->get(['id', 'name']);
         $semesters = Semester::active()->orderBy('number')->get(['id', 'name', 'number']);
 
-        return inertia('Admin/Subject/Edit', ['subject' => $subject, 'semesters' => $semesters]);
+        return inertia('Admin/Subject/Edit', ['subject' => $subject, 'semesters' => $semesters, 'universities' => $universities]);
     }
 
     public function update(Request $request, Subject $subject)

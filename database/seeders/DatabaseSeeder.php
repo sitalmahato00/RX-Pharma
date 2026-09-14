@@ -157,61 +157,67 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Programs
-        $bpharm = Program::create([
-            'university_id' => $tu->id,
-            'name' => 'B.Pharm',
-            'slug' => 'b-pharm',
-            'code' => 'BPH',
-            'level' => 'Bachelor',
-            'duration_years' => 4,
-            'description' => 'Bachelor of Pharmacy - A four-year undergraduate program in pharmaceutical sciences.',
-            'is_active' => true,
-        ]);
+        $bpharm = Program::updateOrCreate(
+            ['university_id' => $tu->id, 'slug' => 'b-pharm'],
+            [
+                'name' => 'B.Pharm',
+                'code' => 'BPH',
+                'level' => 'Bachelor',
+                'duration_years' => 4,
+                'description' => 'Bachelor of Pharmacy - A four-year undergraduate program in pharmaceutical sciences.',
+                'is_active' => true,
+            ]
+        );
 
-        $dpharm = Program::create([
-            'university_id' => $tu->id,
-            'name' => 'Diploma in Pharmacy',
-            'slug' => 'diploma-in-pharmacy',
-            'code' => 'DPH',
-            'level' => 'Diploma',
-            'duration_years' => 3,
-            'description' => 'A three-year diploma program in pharmacy covering fundamental pharmaceutical knowledge.',
-            'is_active' => true,
-        ]);
+        $dpharm = Program::updateOrCreate(
+            ['university_id' => $tu->id, 'slug' => 'diploma-in-pharmacy'],
+            [
+                'name' => 'Diploma in Pharmacy',
+                'code' => 'DPH',
+                'level' => 'Diploma',
+                'duration_years' => 3,
+                'description' => 'A three-year diploma program in pharmacy covering fundamental pharmaceutical knowledge.',
+                'is_active' => true,
+            ]
+        );
 
-        $bnursing = Program::create([
-            'university_id' => $tu->id,
-            'name' => 'B.Sc. Nursing',
-            'slug' => 'b-sc-nursing',
-            'code' => 'BNR',
-            'level' => 'Bachelor',
-            'duration_years' => 4,
-            'description' => 'Bachelor of Science in Nursing - A four-year program in nursing sciences.',
-            'is_active' => true,
-        ]);
+        $bnursing = Program::updateOrCreate(
+            ['university_id' => $tu->id, 'slug' => 'b-sc-nursing'],
+            [
+                'name' => 'B.Sc. Nursing',
+                'code' => 'BNR',
+                'level' => 'Bachelor',
+                'duration_years' => 4,
+                'description' => 'Bachelor of Science in Nursing - A four-year program in nursing sciences.',
+                'is_active' => true,
+            ]
+        );
 
-        Program::create([
-            'university_id' => $ku->id,
-            'name' => 'B.Pharm',
-            'slug' => 'b-pharm-ku',
-            'code' => 'BPH-KU',
-            'level' => 'Bachelor',
-            'duration_years' => 4,
-            'description' => 'Bachelor of Pharmacy at Kathmandu University.',
-            'is_active' => true,
-        ]);
+        Program::updateOrCreate(
+            ['university_id' => $ku->id, 'slug' => 'b-pharm'],
+            [
+                'name' => 'B.Pharm',
+                'code' => 'BPH-KU',
+                'level' => 'Bachelor',
+                'duration_years' => 4,
+                'description' => 'Bachelor of Pharmacy at Kathmandu University.',
+                'is_active' => true,
+            ]
+        );
 
         // Semesters for B.Pharm
         $semesters = [];
         $semesterNames = ['1st Semester', '2nd Semester', '3rd Semester', '4th Semester', '5th Semester', '6th Semester', '7th Semester', '8th Semester'];
         foreach ($semesterNames as $i => $name) {
-            $semesters[] = Semester::create([
-                'program_id' => $bpharm->id,
-                'name' => $name,
-                'slug' => Str::slug($name),
-                'number' => $i + 1,
-                'is_active' => true,
-            ]);
+            $semesters[] = Semester::updateOrCreate(
+                ['slug' => Str::slug($name)],
+                [
+                    'program_id' => $bpharm->id,
+                    'name' => $name,
+                    'number' => $i + 1,
+                    'is_active' => true,
+                ]
+            );
         }
 
         // Subjects for 3rd semester B.Pharm

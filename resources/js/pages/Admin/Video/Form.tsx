@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Alert, Button, Card, FileUpload, Input, Label, Select, Textarea } from '@/components/ui';
+import { Alert, Button, Card, FileUpload, Input, Label, MediaPreview, Select, Textarea } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import AcademicCascade from '@/components/admin/AcademicCascade';
 
@@ -216,6 +216,7 @@ export default function Form({ video, universities }: Props) {
                         onChange={(f) => setData('thumbnail', f)}
                         hint="Upload an image, or set a thumbnail path above."
                     />
+                    <MediaPreview source={data.thumbnail || (isEdit ? video?.thumbnail : null)} type="image" label="Thumbnail preview" />
                     {errors.thumbnail && <p className="mt-1 text-xs text-red-500">{errors.thumbnail}</p>}
 
                     <Input

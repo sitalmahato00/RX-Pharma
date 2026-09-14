@@ -1,5 +1,5 @@
-import { Link, router, useForm, usePage } from '@inertiajs/react';
-import { Alert, Button, Card, FileUpload, Input, Label, Select, Textarea } from '@/components/ui';
+import { Link, useForm } from '@inertiajs/react';
+import { Button, Card, FileUpload, Input, Label, MediaPreview, Select, Textarea } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import AcademicCascade from '@/components/admin/AcademicCascade';
 
@@ -56,14 +56,13 @@ interface NoteFormData {
     description: string;
     status: string;
     featured: boolean;
-    cover_image: string;
+    cover_image_file: File | null;
     author: string;
     tags: string;
     pdf: File | null;
 }
 
 export default function Form({ note, universities }: Props) {
-    const { flash } = usePage<{ flash: { success?: string } }>().props;
     const isEdit = !!note;
     const resource = note?.resource;
 
@@ -79,7 +78,7 @@ export default function Form({ note, universities }: Props) {
         description: resource?.description ?? '',
         status: resource?.status ?? 'draft',
         featured: resource?.featured ?? false,
-        cover_image: note?.cover_image ?? '',
+        cover_image_file: null,
         author: note?.author ?? '',
         tags: resource?.tags ? resource.tags.map((t) => t.name).join(', ') : '',
         pdf: null as File | null,
@@ -89,12 +88,13 @@ export default function Form({ note, universities }: Props) {
         e.preventDefault();
         transform(() => ({
             ...data,
+            ...(isEdit ? { _method: 'put' } : {}),
             tags: data.tags
                 ? data.tags.split(',').map((t: string) => t.trim()).filter(Boolean)
                 : [],
         }));
         if (isEdit) {
-            put(`/admin/notes/${note!.id}`, { forceFormData: true });
+            post(`/admin/notes/${note!.id}`, { forceFormData: true });
         } else {
             post('/admin/notes', { forceFormData: true });
         }
@@ -105,8 +105,6 @@ export default function Form({ note, universities }: Props) {
             <Link href="/admin/notes" className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-ink">
                 <ArrowLeft className="h-4 w-4" /> Back to Notes
             </Link>
-
-            {flash.success && <Alert type="success" dismissible>{flash.success}</Alert>}
 
             <Card className="mx-auto max-w-3xl p-6">
                 <h1 className="mb-6 text-xl font-bold text-ink">{isEdit ? 'Edit Note' : 'Create Note'}</h1>
@@ -168,14 +166,16 @@ export default function Form({ note, universities }: Props) {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <Input
-                            id="cover_image"
-                            label="Cover Image Path"
-                            value={data.cover_image}
-                            onChange={(e) => setData('cover_image', e.target.value)}
-                            error={errors.cover_image}
-                            placeholder="/storage/notes/covers/..."
-                        />
+                        <div>
+                            <FileUpload
+                                label="Cover Image"
+                                accept="image/*"
+                                value={data.cover_image_file || note?.cover_image || null}
+                                onChange={(f) => setData('cover_image_file', f)}
+                                hint={isEdit && note?.cover_image ? 'Leave empty to keep the current cover image.' : 'Upload a cover image'}
+                            />
+                            <MediaPreview source={data.cover_image_file || note?.cover_image} type="image" label="Cover preview" />
+                        </div>
 
                         <Input
                             id="tags"
@@ -186,6 +186,7 @@ export default function Form({ note, universities }: Props) {
                             placeholder="Pharmacology, Exam, Unit 1"
                         />
                     </div>
+                    {errors.cover_image_file && <p className="mt-1 text-xs text-red-500">{errors.cover_image_file}</p>}
 
                     <FileUpload
                         label="PDF File"
@@ -194,6 +195,7 @@ export default function Form({ note, universities }: Props) {
                         onChange={(f) => setData('pdf', f)}
                         hint="Upload a PDF (max 50MB)"
                     />
+                    <MediaPreview source={data.pdf || (isEdit ? note?.file_path : null)} type="pdf" label="PDF preview" />
                     {errors.pdf && <p className="mt-1 text-xs text-red-500">{errors.pdf}</p>}
 
                     <label className="flex items-center gap-2">

@@ -68,10 +68,13 @@ class AdminNoteController extends Controller
         ]);
 
         $filePath = $this->resolveFilePath($request);
+        $coverPath = $request->hasFile('cover_image_file')
+            ? $request->file('cover_image_file')->store('notes/covers', 'public')
+            : null;
 
         $note = Note::create([
             'resource_id' => $resource->id,
-            'cover_image' => $data['cover_image'] ?? null,
+            'cover_image' => $coverPath,
             'file_path' => $filePath,
             'file_name' => $this->uploadedFileName($request),
             'file_size' => $this->uploadedFileSize($request),
@@ -123,8 +126,13 @@ class AdminNoteController extends Controller
             'published_at' => $data['published_at'] ?? ($data['status'] === 'published' ? ($resource->published_at ?: now()) : null),
         ]);
 
+        $coverPath = $note->cover_image;
+        if ($request->hasFile('cover_image_file')) {
+            $coverPath = $request->file('cover_image_file')->store('notes/covers', 'public');
+        }
+
         $note->update([
-            'cover_image' => $data['cover_image'] ?? $note->cover_image,
+            'cover_image' => $coverPath,
             'file_path' => $this->resolveFilePath($request) ?? $note->file_path,
             'file_name' => $this->uploadedFileName($request) ?? $note->file_name,
             'file_size' => $this->uploadedFileSize($request) ?? $note->file_size,
@@ -189,7 +197,7 @@ class AdminNoteController extends Controller
             'topic_id' => ['nullable', 'exists:topics,id'],
             'status' => ['required', 'in:draft,published,archived'],
             'featured' => ['nullable', 'boolean'],
-            'cover_image' => ['nullable', 'string', 'max:2048'],
+            'cover_image_file' => ['nullable', 'image', 'max:5120'],
             'file_path' => ['nullable', 'string', 'max:2048'],
             'file' => ['nullable', 'file', 'mimes:pdf,doc,docx,ppt,pptx,txt', 'max:51200'],
             'pdf' => ['nullable', 'file', 'mimes:pdf', 'max:51200'],

@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Alert, Button, Card, FileUpload, Input, Label, Select, Textarea } from '@/components/ui';
+import { Alert, Button, Card, FileUpload, Input, Label, MediaPreview, Select, Textarea } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import AcademicCascade from '@/components/admin/AcademicCascade';
 
@@ -216,6 +216,7 @@ export default function Form({ literature, universities, categories }: Props) {
                         onChange={(f) => setData('file', f)}
                         hint={isEdit && literature?.file_path ? 'Leave empty to keep the current file.' : 'pdf, doc, docx or txt (max 50MB)'}
                     />
+                    <MediaPreview source={data.file || (isEdit ? literature?.file_path : null)} type="pdf" label="Document preview" />
                     {errors.file && <p className="mt-1 text-xs text-red-500">{errors.file}</p>}
 
                     <Input
@@ -243,6 +244,7 @@ export default function Form({ literature, universities, categories }: Props) {
                             onChange={(f) => setData('cover_image_file', f)}
                             hint="Or fill the path above."
                         />
+                        <MediaPreview source={data.cover_image_file || (isEdit ? literature?.cover_image : null)} type="image" label="Cover preview" />
                     </div>
                     {errors.cover_image_file && <p className="mt-1 text-xs text-red-500">{errors.cover_image_file}</p>}
 

@@ -8,19 +8,22 @@ interface Props {
         slug: string;
         semester_id?: number | null;
         program_id?: number | null;
+        semester?: { id?: number; program?: { university_id?: number | null } };
+        program?: { id?: number; university_id?: number | null };
         code?: string | null;
         description?: string | null;
         color?: string | null;
         is_active: boolean;
     };
     semesters: { id: number; name: string; number: number }[];
+    universities?: { id: number; name: string }[];
 }
 
-export default function Edit({ subject, semesters }: Props) {
+export default function Edit({ subject, semesters, universities = [] }: Props) {
     return (
         <>
             <Head title={`Edit ${subject.name}`} />
-            <Form subject={subject} semesters={semesters} />
+            <Form subject={subject} semesters={semesters} universities={universities} />
         </>
     );
 }
