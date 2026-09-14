@@ -1,0 +1,129 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.tsx';
+@source '../**/*.ts';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --color-primary-50: #eef5fc;
+    --color-primary-100: #d9e8f7;
+    --color-primary-200: #b3d0ef;
+    --color-primary-300: #82b0e2;
+    --color-primary-400: #4a8ad1;
+    --color-primary-500: #2370bd;
+    --color-primary-600: #0b63ce;
+    --color-primary-700: #0852ab;
+    --color-primary-800: #063b6f;
+    --color-primary-900: #052d55;
+    --color-primary-950: #031c38;
+
+    --color-surface: #f6f9fc;
+    --color-ink: #102a43;
+    --color-muted: #64748b;
+
+    --shadow-card: 0 1px 2px rgba(16, 42, 67, 0.06), 0 1px 3px rgba(16, 42, 67, 0.08);
+    --shadow-card-hover: 0 4px 8px rgba(16, 42, 67, 0.08), 0 2px 4px rgba(16, 42, 67, 0.06);
+    --shadow-pop: 0 10px 25px rgba(16, 42, 67, 0.12), 0 4px 10px rgba(16, 42, 67, 0.06);
+
+    --radius-card: 0.75rem;
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        background-color: var(--color-surface);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+    }
+
+    ::selection {
+        background-color: var(--color-primary-100);
+        color: var(--color-primary-900);
+    }
+}
+
+@layer components {
+    .card {
+        background-color: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-card);
+    }
+
+    .input {
+        width: 100%;
+        border-radius: 0.5rem;
+        border: 1px solid #cbd5e1;
+        background-color: #fff;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        color: var(--color-ink);
+        outline: none;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .input:focus {
+        border-color: var(--color-primary-500);
+        box-shadow: 0 0 0 3px rgba(11, 99, 206, 0.15);
+    }
+
+    .input::placeholder {
+        color: #94a3b8;
+    }
+
+    .label {
+        display: block;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #334155;
+        margin-bottom: 0.375rem;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
