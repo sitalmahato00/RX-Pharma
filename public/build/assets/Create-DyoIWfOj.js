@@ -1,0 +1,1 @@
+import{j as t,H as o}from"./app-kCFWNG0q.js";import i from"./Form-DMQ_DNTF.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function x({units:r,universities:e=[]}){return t.jsxs(t.Fragment,{children:[t.jsx(o,{title:"Create Topic"}),t.jsx(i,{units:r,universities:e})]})}export{x as default};

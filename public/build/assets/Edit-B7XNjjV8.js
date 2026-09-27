@@ -1,0 +1,1 @@
+import{j as t,H as m}from"./app-kCFWNG0q.js";import o from"./Form-BCuoH6gX.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function d({university:r}){return t.jsxs(t.Fragment,{children:[t.jsx(m,{title:`Edit ${r.name}`}),t.jsx(o,{university:r})]})}export{d as default};

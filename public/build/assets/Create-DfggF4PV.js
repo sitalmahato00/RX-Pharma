@@ -1,0 +1,1 @@
+import{j as t,H as e}from"./app-kCFWNG0q.js";import o from"./Form-B0RlifZN.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function l({universities:r}){return t.jsxs(t.Fragment,{children:[t.jsx(e,{title:"Create College"}),t.jsx(o,{universities:r})]})}export{l as default};

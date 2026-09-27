@@ -1,0 +1,1 @@
+import{j as t,H as o}from"./app-kCFWNG0q.js";import m from"./Form-lYK9RC1h.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function n({semesters:r,universities:e=[]}){return t.jsxs(t.Fragment,{children:[t.jsx(o,{title:"Create Subject"}),t.jsx(m,{semesters:r,universities:e})]})}export{n as default};

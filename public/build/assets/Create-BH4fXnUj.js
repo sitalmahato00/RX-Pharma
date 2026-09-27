@@ -1,0 +1,1 @@
+import{j as t,H as e}from"./app-kCFWNG0q.js";import m from"./Form-DIoU9jho.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function n({universities:r}){return t.jsxs(t.Fragment,{children:[t.jsx(e,{title:"Create Semester"}),t.jsx(m,{universities:r})]})}export{n as default};

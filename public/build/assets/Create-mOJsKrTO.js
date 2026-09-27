@@ -1,0 +1,1 @@
+import{j as r,H as e}from"./app-kCFWNG0q.js";import o from"./Form-BJw2BAJT.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function n({universities:t}){return r.jsxs(r.Fragment,{children:[r.jsx(e,{title:"Create Program"}),r.jsx(o,{universities:t})]})}export{n as default};

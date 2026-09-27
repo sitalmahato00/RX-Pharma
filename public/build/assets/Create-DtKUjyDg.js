@@ -1,0 +1,1 @@
+import{j as t,H as r}from"./app-kCFWNG0q.js";import e from"./Form-BCuoH6gX.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function n(){return t.jsxs(t.Fragment,{children:[t.jsx(r,{title:"Create University"}),t.jsx(e,{})]})}export{n as default};

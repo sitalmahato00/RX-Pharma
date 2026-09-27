@@ -1,0 +1,1 @@
+import{j as e,o as n}from"./app-kCFWNG0q.js";function i({children:r,className:o,hoverable:a,onClick:s,as:t="div"}){return e.jsx(t,{className:n("card rounded-xl",a&&"transition hover:shadow-card-hover hover:-translate-y-0.5 cursor-pointer",o),onClick:s,children:r})}export{i as C};

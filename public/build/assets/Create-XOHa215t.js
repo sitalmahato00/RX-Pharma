@@ -1,0 +1,1 @@
+import{j as t,H as o}from"./app-kCFWNG0q.js";import i from"./Form-D-DGYzKn.js";import"./Alert-B7wfaoyP.js";import"./Card-9lUzFeKA.js";import"./arrow-left-DyjFKWK2.js";function x({subjects:r,universities:e=[]}){return t.jsxs(t.Fragment,{children:[t.jsx(o,{title:"Create Unit"}),t.jsx(i,{subjects:r,universities:e})]})}export{x as default};
